@@ -14,6 +14,7 @@ int main()
     double x1, x2, delta;
     unsigned int N;
 
+    //Цикл валідації номера варіанта
     while (variant !=1 && variant !=2){
         printf("Oberit variant (1 - za N, 2 - za delta): ");
         scanf("%d", &variant);
@@ -29,13 +30,19 @@ int main()
     if (variant == 1) {
         printf("Vvedit kilkist tochok N: ");
         scanf("%u", &N);
+        //Обчислення кроку delta за формулою
         delta = (x2-x1)/(N-1);
     } else {
         printf("Vvedit krok delta: ");
         scanf("%lf", &delta);
+        //Обчислення точок N за формулою
         N = (unsigned int)((x2-x1)/delta)+1;
     }
+
+    //Вивелення введених початкових даних
     printf("\nX1=%.2lf, X2=%2lf, delta=%.2lf\n\n", x1, x2, delta);
+
+    //Шапка таблиці
     printf("*******************************************************\n");
     printf("*   N  *   X     *    F(X)*\n");
     printf("*******************************************************\n");
@@ -50,9 +57,11 @@ int main()
         double x = x1 + (i-1) * delta;
         double y = f(x);
 
+        //Форматоване виведення рядка (ширина: 5, 18, 20)
         printf("|%5u|%18.2lf|%21.2lf|\n", i, x, y);
         printf("+-----+------------------+--------------------------+\n");
 
+        //Перевірка на перетин осі Х (зміна знаку)
         if (i > 1 && prev_y*y<=0){
             printf(" --> Korin na intervali: [%.2lf; %.2lf}\n", prev_x, x);
             printf("+-----+------------------+-------------------------+\n");
@@ -60,6 +69,5 @@ int main()
         prev_x=x;
         prev_y=y;
     }
-    getch();
     return 0;
 }
